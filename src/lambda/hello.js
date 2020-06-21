@@ -1,7 +1,8 @@
 exports.handler = function(event, context, callback) {
-    console.log('queryStringParameters', event.queryStringParameters)
-    callback(null, {
+    const name = event.queryStringParameters || 'World!'
+    return callback(null, {
         statusCode: 200,
-        body: JSON.stringify({ msg: 'Hello, World!' }),
+        body: context.functionName,
+
     })
 }
