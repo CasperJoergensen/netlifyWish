@@ -4,8 +4,10 @@ const netlifyIdentity = require('netlify-identity-widget');
 function LandingPage() {
     netlifyIdentity.init()
 
-    const openLoginModal = () => {
-        netlifyIdentity.open('login')
+    const openLoginModal = async () => {
+        const result = await fetch("/.netlify/functions/hello")
+        console.log(result)
+        // netlifyIdentity.open('login')
     }
 
     return (
