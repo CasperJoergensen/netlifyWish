@@ -1,3 +1,3 @@
-export function handler(event, context, callback) {
+exports.handler = function(event, context, callback) {
     console.log('queryStringParameters')
 }
