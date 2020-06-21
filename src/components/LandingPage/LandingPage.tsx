@@ -5,8 +5,8 @@ function LandingPage() {
     netlifyIdentity.init()
 
     const openLoginModal = async () => {
-        const result = await fetch("/.netlify/functions/hello")
-        console.log(result)
+        const result = await fetch("/.netlify/functions/hello?what=world")
+        console.log(result.body)
         // netlifyIdentity.open('login')
     }
 
