@@ -1,5 +1,4 @@
 export default async function (functionName: string, currentUser: any, options: object) {
-    const routePrefix = ''
 
     let headers = {
         Authorization: `Bearer ${currentUser().token['access_token']}`,

@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import LandingPage from "./components/LandingPage/LandingPage";
 import functionCaller from "./utils/functionCaller";
 
 const netlifyIdentity = require('netlify-identity-widget');
@@ -24,7 +22,7 @@ function App() {
 
     const [user, setUser] = useState({})
 
-    const openLoginModal = async (e: any) => {
+    const openLoginModal = async () => {
         netlifyIdentity.open()
         const options = {
             userId: true
