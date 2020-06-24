@@ -20,7 +20,7 @@ exports.handler = async function (event, context) {
     })
 
     const {user} = context.clientContext
-    console.log(user)
+    console.log(context)
     let result;
     switch (event.httpMethod) {
         case 'POST':
