@@ -1,28 +1,52 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import LandingPage from "./components/LandingPage/LandingPage";
+import functionCaller from "./utils/functionCaller";
+
+const netlifyIdentity = require('netlify-identity-widget');
+    netlifyIdentity.init()
 
 function App() {
-  return (
-    <div className="App">
-        <LandingPage />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    netlifyIdentity.on('login', (user: object) => {
+        setUser(user)
+        netlifyIdentity.close()
+    })
+    netlifyIdentity.on('logout', () => {
+        setUser({})
+        netlifyIdentity.close()
+    })
+
+    useEffect(() => {
+        const user = netlifyIdentity.currentUser() || {}
+        setUser(user)
+    }, [])
+
+    const [user, setUser] = useState({})
+
+    const openLoginModal = async (e: any) => {
+        netlifyIdentity.open()
+        const options = {
+            userId: true
+        }
+        console.log(await functionCaller(`db?action=find&options=${JSON.stringify(options)}`, netlifyIdentity.currentUser, {}));
+
+    }
+
+    const isEmpty = (obj: object) => {
+        return Object.keys(obj).length === 0;
+    }
+
+    return (
+        <div className="App">
+            {isEmpty(user) ?
+                (
+                    <button onClick={openLoginModal}>Log ind for at fortsætte</button>
+                ) : (
+                    <p onClick={openLoginModal}>Velkommen</p>
+                )}
+        </div>
+    );
 }
 
 export default App;
