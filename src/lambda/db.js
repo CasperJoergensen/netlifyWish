@@ -31,7 +31,6 @@ exports.handler = async function (event, context) {
             const {queryStringParameters} = event;
             console.log(queryStringParameters)
             result = await get(queryStringParameters, user)
-            console.log(result)
             break
         default:
             return {statusCode: 400, body: JSON.stringify({msg: "Only 'POST' and 'GET' is valid"})}
@@ -39,7 +38,7 @@ exports.handler = async function (event, context) {
 
     return {
         statusCode: 200,
-        body: JSON.stringify({})
+        body: JSON.stringify(result)
     }
 }
 
